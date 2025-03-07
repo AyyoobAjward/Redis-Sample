@@ -1,25 +1,24 @@
 import { Module } from '@nestjs/common';
-import { ProductModule } from './product/product.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RedisModule } from '@nestjs-modules/ioredis'
+import { ProductModule } from './product/product.module';
+import { Product } from './product/entities/product.entity';
+import { RedisModule } from '@nestjs-modules/ioredis';
 
 @Module({
-  imports: [
-    ProductModule,
-    RedisModule.forRoot({type: 'single', url: 'localhost:6379'}),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      useUTC: true,
-      logNotifications: true,
+  imports: [TypeOrmModule.forRoot({
+    type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'root',
+      username: 'postgres',
       password: 'root',
       database: 'redis',
-      synchronize: true //only on dev mode 
-    })
-  ],
-  controllers: [],
-  providers: [],
+      entities: [Product],
+      synchronize: true,
+  }),
+  RedisModule.forRoot({
+    type: 'single',
+    url: 'localhost:6379'
+  }),
+  ProductModule]
 })
 export class AppModule {}

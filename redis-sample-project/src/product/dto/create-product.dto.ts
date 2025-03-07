@@ -1,13 +1,13 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator"
 
 export class CreateProductDto {
-    
     @IsString()
-    product_name: string
+    name: string
 
-    @IsNumber({maxDecimalPlaces: 2})
+    @IsNumber()
     price: number
 
+    @IsOptional()
     @IsNumber()
     quantity: number
 }

@@ -1,16 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: number
 
     @Column()
-    product_name: string
+    name: string
 
     @Column()
     price: number
 
-    @Column({default: 0, precision: 2})
+    @Column({default: 0, nullable: true})
     quantity: number
 }
